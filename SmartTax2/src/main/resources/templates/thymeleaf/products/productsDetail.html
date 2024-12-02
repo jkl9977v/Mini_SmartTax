@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ 제품 상세페이지입니다.<br />
+제품 번호 : [[${dto.productNum }]]<br />
+제품 이름 : [[${dto.productName }]]<br />
+제품 카테고리 : [[${dto.category }]]<br />
+제품 구매 가격 : [[${dto.purchasePrice }]]<br />
+제품 판매 가격 : [[${dto.salePrice }]]<br />
+제품 등록일 : [[${#dates.format(dto.productDate,'yyyy-MM-dd') }]]<br />
+<a th:href="@{productsUpdate(productNum=${dto.productNum })}"> 제품 수정</a> | 
+<a th:href="|productsDelete?productNum=${dto.productNum }|"> 제품 삭제</a> |
+<a href="productsList">비용목록</a>
+</body>
+</html>
+
+
+
+
+
+

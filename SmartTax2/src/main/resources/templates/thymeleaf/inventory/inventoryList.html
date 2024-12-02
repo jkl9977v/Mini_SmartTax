@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/checkbox.js"></script>
+</head>
+<body>
+나의 재고 목록 페이지 <br/>
+<a href="inventoryWrite">재고 등록</a> | <a href="../prodInven">재고 재고관리</a><br />
+
+<table border=1 width="600">
+	<!-- <form action="inventoryList" method="get">
+	<tr>
+		<td colspan="6">유저 검색:
+			<input type="search" name="searchWord" size=60 th:value="${searchWord}">
+			<input type="submit" value="검색">
+		</td>
+	</tr>
+	</form> -->
+
+	<tr><td><input type="checkbox" id="checkBoxs" /></td>
+		<td>번호</td><td>재고 번호</td><td> 제품 번호</td><td>현재 재고 수량</td><td>마지막 업데이트 날짜</td>
+	</tr>
+	<tr th:each=" dto,idx : ${list}">
+		<td><input type="checkbox" name="nums" /> <!-- th:value="${dto.inventoryNum}" --></td>
+		<td>[[${idx.index}+1]]</td>
+		<td><a th:href="|inventoryDetail?inventoryNum=${dto.inventoryNum}|">[[${dto.inventoryNum}]]</a></td>
+		<td>[[${dto.inventoryName}]]</td>
+		<td>[[${dto.category}]]</td>
+		<td>[[${dto.purchasePrice}]]</td>
+		<td>[[${#dates.format(dto.inventoryDate,'yyyy-MM-dd')}]]</td>
+	</tr>
+
+	<!-- <tr>
+		<th colspan="6">
+		<span th:if="${page <= 1}">[이전]</span>
+		<span th:if="${page > 1}">
+			<a th:href="|inventoryList?page=${page - 1}&searchWord=${searchWord}|">[이전]</a>
+		</span>   									1,          10 
+		<th:block th:each=" i : ${#numbers.sequence(startPageNum, endPageNum)}">
+			[<a th:href="|inventoryList?page=${i}&searchWord=${searchWord}|">${i}</a>]
+		</th:block>
+		<span th:if="${page < maxPage}">
+			<a th:href="@{inventoryList(page=${page + 1},searchWord=${searchWord})}">[다음]</a>
+		</span>
+		<span th:if="${page >= maxPage}">
+			[다음]
+		</span>
+		</th>
+	</tr> -->
+</table>
+</body>
+</html>
