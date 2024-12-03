@@ -1,0 +1,20 @@
+list 서비스 관련 Mapper.xml 코드
+ 
+ <select id="memberSelectList" resultType="memberDTO" parameterType="startEndPageDTO">
+select *
+from (select ROW_NUMBER() over (order by member_num ) as rn  
+	        ,<include refid="memberBaseColumns"/>
+	  from members
+<where> 
+	<if test="searchWord != null">
+		MEMBER_NAME like '%'||#{searchWord}||'%'
+		or MEMBER_ID like '%'||#{searchWord}||'%'
+		or MEMBER_NUM like '%'||#{searchWord}||'%'
+	</if>
+</where>
+)
+where rn BETWEEN #{startRow} and #{endRow}
+</select>
+<select id="memberCount" resultType="integer">
+	select count(*) from members
+</select>

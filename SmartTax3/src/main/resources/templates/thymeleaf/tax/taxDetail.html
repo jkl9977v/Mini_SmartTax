@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+세금 상세페이지입니다.<br />
+세금 신고 번호 : [[${dto.taxNum }]]<br />
+소득세 금액 : [[${${dto.incomeTax }]]<br />
+부가세 금액 : [[${dto.vatTax }]]<br />
+공제 금액 : [[${dto.taxDeduction }]]<br />
+세금 신고 및 납부 기한 : [[${#dates.format(dto.taxDueDate,'yyyy-MM-dd') }]]<br />
+납부 상태 : [[${dto.taxPaymentStatus }]]<br />
+<a th:href="@{taxUpdate(taxNum=${dto.taxNum })}">세금 수정</a> | 
+<a th:href="|taxDelete?taxNum=${dto.taxNum }|">세금 삭제</a> |
+<a href="taxList">세금 목록</a>
+</body>
+</html>
+
+
+
+
+
+

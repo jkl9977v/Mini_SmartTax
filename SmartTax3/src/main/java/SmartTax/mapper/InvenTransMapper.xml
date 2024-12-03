@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SmartTax.mapper.InvenTransMapper">
+<sql id="baseColumn">
+transaction_Num, product_Num,  user_Num, add_Quantity, transaction_Date
+</sql>
+<insert id="invenTransInsert" parameterType="invenTransDTO">
+insert into inventory_transactions  ( <include refid="baseColumn"/> )
+values( #{transactionNum}, #{productNum }, #{userNum}, #{addQuantity}
+, #{transactionDate})
+</insert>
+
+<select id="invenTransSelectAll" parameterType="invenTransDTO" resultType="invenTransDTO">
+select 	<include refid="baseColumn"/>
+ from inventory_transactions 
+</select>
+
+<select id="invenTransSelectOne" resultType="invenTransDTO">
+select 	<include refid="baseColumn"/>
+ from inventory_transactions 
+where transaction_Num = #{transactionNum} and user_num=#{userNum}
+</select>
+
+<update id="invenTransUpdate">
+update inventory_transactions 
+set product_Num=#{productNum }, add_Quantity=#{addQuantity }, transaction_Date=#{transactionDate}
+where transaction_Num = #{transactionNum} and user_num=#{userNum}
+</update>
+
+<delete id="invenTransDelete" >
+delete from inventory_transactions  where transaction_Num = #{transactionNum} and user_num=#{userNum}
+</delete>
+
+</mapper>

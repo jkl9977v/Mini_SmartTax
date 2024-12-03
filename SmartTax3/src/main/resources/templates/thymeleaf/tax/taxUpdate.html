@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/check.js"></script>
+</head>
+<body>
+세금 수정 페이지입니다.<br />
+<form action="taxUpdate" method="post" ><!-- th:object="${taxCommand}" dto -->
+	<input type="text" name="taxNum" th:value="${dto.taxNum}" readonly="readonly"  /><br />
+	
+	
+소득세 금액 : <input type="number" name="incomeTax" id="taxDate" th:value="${dto.incomeTax }" />
+		       	<!-- <span  style="color:red" th:if="${#fields.hasErrors('taxId')}"th:errors="*{taxId}"></span> --> <br />
+부가세 금액 : <input type="number" name="vatTax" th:value="${dto.vatTax }" />
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('taxPw')}"  th:errors="*{taxPw}"></span> --> <br />
+공제 금액 : <input type="number" name="taxDeduction" th:value="${dto.taxDeduction }"  />
+			   	<!-- <span style="color:red" th:if="${#fields.hasErrors('taxPwCon')}" th:errors="*{taxPwCon}"></span> --> <br />
+세금 신고 및 납부 기한 : <input type="date" name="taxDueDate" th:value="${#dates.format(dto.taxDueDate,'yyyy-MM-dd') }"  />
+			   	<!-- <span style="color:red" th:if="${#fields.hasErrors('taxPwCon')}" th:errors="*{taxPwCon}"></span> --> <br />
+납부 상태 : <input type="text" name="taxPaymentStatus" th:value="${dto.taxPaymentStatus }" />
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('taxAddr')}" th:errors="*{taxAddr}"></span> --> <br />
+
+<input type="submit" value="세금 수정하기" /> 
+<input type="button" value="세금 목록" onclick="javascript:location.href='taxList'">
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SmartTax.mapper.VatMapper">
+<sql id="baseColumn">
+vat_Report_Num, user_Num, vat_Report_Date, total_Vat,vat_Due_Date,vat_Payment_Status
+</sql>
+<insert id="vat_reportInsert" parameterType="vatDTO">
+insert into vat_report ( <include refid="baseColumn"/> )
+values( #{vatReportNum}, #{userNum}, #{vatReportDate}, #{totalVat}
+, #{vatDueDate}, #{vatPaymentStatus})
+</insert>
+
+<select id="vatSelectAll" parameterType="vatDTO" resultType="vatDTO">
+select 	<include refid="baseColumn"/>
+ from vat_report
+</select>
+
+<select id="vatSelectOne" resultType="vatDTO">
+select 	<include refid="baseColumn"/>
+ from vat_report
+where vat_Report_Num = #{vatReportNum} and user_num=#{userNum}
+</select>
+
+<update id="vatUpdate">
+update vat_report
+set vat_Report_Date=#{vatReportDate }, total_Vat=#{totalVat },vat_Due_Date=#{vatDueDate },vat_Payment_Status=#{vatPaymentStatus}
+where vat_Report_Num = #{vatReportNum} and user_num=#{userNum}
+</update>
+
+<delete id="vatDelete" >
+delete from vat_report where vat_Report_Num = #{vatReportNum} and user_num=#{userNum}
+</delete>
+
+</mapper>

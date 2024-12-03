@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/check.js"></script>
+</head>
+<body>
+순수익 보고서 수정 페이지입니다.<br />
+<form action="reportsUpdate" method="post" ><!-- th:object="${reportCommand}" dto -->
+	<input type="text" name="reportNum" th:value="${dto.reportNum}" readonly="readonly"  /><br />
+	
+	
+보고서 기간 시작일 : <input type="date" name="periodStart"  th:value="${dto.periodStart }" readonly="readonly" />
+				<span id="idCheck"></span>
+		       	<!-- <span  style="color:red" th:if="${#fields.hasErrors('reportId')}"th:errors="*{reportId}"></span> --> <br />
+보고서 기간 종료일 : <input type="date" name="periodEnd"  th:value="${dto.periodEnd }" readonly="readonly"/>
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('reportPw')}"  th:errors="*{reportPw}"></span> --> <br />
+총 매출 금액 : <input type="number" name="totalIncome" th:value="${dto.totalIncome }"  />
+			   	<!-- <span style="color:red" th:if="${#fields.hasErrors('reportPwCon')}" th:errors="*{reportPwCon}"></span> --> <br />
+총 비용 금액 :<input type="number" name="totalExpenses" th:value="${dto.totalExpenses }" />
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('reportName')}" th:errors="*{reportName}"></span> --> <br />
+순이익 (총 매출 - 총 비용) : <input type="number" name="netProfit" th:value="${dto.netProfit }" />
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('reportAddr')}" th:errors="*{reportAddr}"></span> --> <br />
+
+<input type="submit" value="순수익 보고서 수정하기" /> 
+<input type="button" value="순수익 보고서 목록" onclick="javascript:location.href='reportsList'">
+</body>
+</html>

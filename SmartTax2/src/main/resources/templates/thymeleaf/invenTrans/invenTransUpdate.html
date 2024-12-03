@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/check.js"></script>
+</head>
+<body>
+ 입출고 수정 페이지입니다.<br />
+<form action="invenTransUpdate" method="post" ><!-- th:object="${invenTransCommand}" dto -->
+	<input type="text" name="transactionNum" th:value="${dto.transactionNum}" readonly="readonly"  /><br />
+	
+	
+제품 ID : <input type="text" name="productNum" th:value="${dto.productNum }"  />
+		       	<!-- <span  style="color:red" th:if="${#fields.hasErrors('invenTransId')}"th:errors="*{invenTransId}"></span> --> <br />
+입출고 수량 : <input type="number" name="addQuantity" th:value="${dto.addQuantity }"  />
+			   	<!-- <span style="color:red" th:if="${#fields.hasErrors('invenTransPwCon')}" th:errors="*{invenTransPwCon}"></span> --> <br />
+거래 일자:<input type="date" name="transactionDate" th:value="${#dates.format(dto.transactionDate,'yyyy-MM-dd') }"/>
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('invenTransName')}" th:errors="*{invenTransName}"></span> --> <br />
+
+
+<input type="submit" value=" 입출고 수정하기" /> 
+<input type="button" value=" 입출고 목록" onclick="javascript:location.href='invenTransList'">
+</body>
+</html>

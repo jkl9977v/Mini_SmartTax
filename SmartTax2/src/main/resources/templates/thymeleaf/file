@@ -1,5 +1,10 @@
-    String inventoryNum  ;    // 재고 항목 고유 ID
-    String productNum ;      // 제품 ID (products 테이블 참조)
-    String userNum  ;         // 사용자 ID (users 테이블 참조)
-    Integer inventoryQuantity  ;    // 현재 재고 수량
-    Date lastUpdated   ;    // 마지막 업데이트 날짜
+String deductionNum ;        // 공제 항목 번호
+  String  userNum;             // 사용자 번호 (users 테이블 참조)
+   String deductionType ;       // 공제 항목 종류 (기부금; 의료비 등)
+   Integer deductionAmount ;           // 공제 금액
+   Date deductionDate ;                // 공제 적용일
+ 
+ 
+ 
+ 
+ 

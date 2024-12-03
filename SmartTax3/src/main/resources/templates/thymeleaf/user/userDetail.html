@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+유저상세페이지입니다.<br />
+유저번호 : [[${dto.userNum }]]<br />
+이름 : [[${dto.userName }]]<br />
+아이디 : [[${dto.userId }]]<br />
+주소 : [[${dto.userAddr }]]<br />
+상세주소 : [[${dto.userAddrDetail }]]<br />
+우편번호 : [[${dto.userPost }]]<br />
+연락처 : [[${dto.userPhone }]]<br />
+등록일 : [[${#dates.format(dto.userJoinDate ,'yyyy-MM-dd')}]]<br />
+이미지: 	<br/>
+이메일 : [[${dto.userEmail }]]<br />
+가입일: [[${#dates.format(dto.userJoinDate,'yyyy-MM-dd')}]]<br />
+<a th:href="@{userUpdate(userNum=${dto.userNum })}">유저 수정</a> | 
+<a th:href="|userDelete?userNum${dto.userNum}|">탈퇴 하기</a> 
+</body>
+</html>
+
+
+
+
+
+

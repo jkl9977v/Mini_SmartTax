@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/check.js"></script>
+</head>
+<body>
+매출수정 페이지입니다.<br />
+<form action="incomeUpdate" method="post" ><!-- th:object="${incomeCommand}" dto -->
+	<input type="text" name="incomeNum" th:value="${dto.incomeNum}" readonly="readonly"  /><br />
+	
+	
+매출 금액 : <input type="text" name="incomeAmount" id="incomeAmount" th:value="${dto.incomeAmount }" />
+		       	<!-- <span  style="color:red" th:if="${#fields.hasErrors('incomeId')}"th:errors="*{incomeId}"></span> --> <br />
+매출 발생일 : <input type="date" name="incomeDate" th:value="${dto.incomeDate }" />
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('incomePw')}"  th:errors="*{incomePw}"></span> --> <br />
+매출 카테고리 : <input type="text" name="incomeCategory" th:value="${dto.incomeCategory }"  />
+			   	<!-- <span style="color:red" th:if="${#fields.hasErrors('incomePwCon')}" th:errors="*{incomePwCon}"></span> --> <br />
+매출 설명 : <br/>
+<textarea rows="5" cols="40" name="incomeDescription" >[[${dto.incomeDescription } ]]</textarea>
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('incomeName')}" th:errors="*{incomeName}"></span> --> <br />
+부가세 : <input type="number" name="incomeVatAmount" th:value="${dto.incomeVatAmount }" />
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('incomeAddr')}" th:errors="*{incomeAddr}"></span> --> <br />
+
+<input type="submit" value="매출 수정하기" /> 
+<input type="button" value="매출목록" onclick="javascript:location.href='incomeList'">
+</body>
+</html>

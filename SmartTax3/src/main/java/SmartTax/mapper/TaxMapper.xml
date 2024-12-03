@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SmartTax.mapper.TaxMapper">
+<sql id="baseColumn">
+tax_Num, user_Num, income_Tax, vat_Tax, tax_Type, tax_Due_Date, tax_Payment_Status
+</sql>
+<insert id="taxInsert" parameterType="taxDTO">
+insert into taxes ( <include refid="baseColumn"/> )
+values( #{taxNum}, #{userNum}, #{incomeTax}, #{vatTax}
+, #{taxType}, #{taxDueDate}, #{taxPaymentStatus})
+</insert>
+
+<select id="taxSelectAll" parameterType="taxDTO" resultType="taxDTO">
+select 	<include refid="baseColumn"/>
+ from taxes
+</select>
+
+<select id="taxSelectOne" resultType="taxDTO">
+select 	<include refid="baseColumn"/>
+ from taxes
+where tax_NUM = #{taxNum} and user_num=#{userNum}
+</select>
+
+<update id="taxUpdate">
+update taxes
+set income_Tax=#{incomeTax }, vat_Tax=#{vatTax },tax_Type=#{taxType },tax_Due_Date=#{taxDueDate}
+,tax_Payment_Status=#{taxPaymentStatus}
+where tax_NUM = #{taxNum} and user_num=#{userNum}
+</update>
+
+<delete id="taxDelete" >
+delete from taxes where tax_NUM = #{taxNum} and user_num=#{userNum}
+</delete>
+
+</mapper>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/checkbox.js"></script>
+</head>
+<body>
+나의 세금 목록 페이지 <br/>
+<a href="taxWrite">세금 작성</a><br />
+
+<table border=1 width="600">
+	<!-- <form action="taxList" method="get">
+	<tr>
+		<td colspan="6">유저 검색:
+			<input type="search" name="searchWord" size=60 th:value="${searchWord}">
+			<input type="submit" value="검색">
+		</td>
+	</tr>
+	</form> -->
+
+	<tr><td><input type="checkbox" id="checkBoxs" /></td>
+		<td>번호</td><td>세금 신고 번호</td><td>세금 신고 및 납부 기한</td><td>납부 상태</td>
+		<!-- <td>세금 카테고리</td> -->
+	</tr>
+	<tr th:each=" dto,idx : ${list}">
+		<td><input type="checkbox" name="nums" /> <!-- th:value="${dto.taxNum}" --></td>
+		<td>[[${idx.index}+1]]</td>
+		<td><a th:href="|taxDetail?taxNum=${dto.taxNum}|">[[${dto.taxNum}]]</a></td>
+		<td>[[${#dates.format(dto.taxDueDate,'yyyy-MM-dd')}]]</td>
+		<td>[[${dto.taxPaymentStatus}]]</td>
+		
+	</tr>
+
+	<!-- <tr>
+		<th colspan="6">
+		<span th:if="${page <= 1}">[이전]</span>
+		<span th:if="${page > 1}">
+			<a th:href="|taxList?page=${page - 1}&searchWord=${searchWord}|">[이전]</a>
+		</span>   									1,          10 
+		<th:block th:each=" i : ${#numbers.sequence(startPageNum, endPageNum)}">
+			[<a th:href="|taxList?page=${i}&searchWord=${searchWord}|">${i}</a>]
+		</th:block>
+		<span th:if="${page < maxPage}">
+			<a th:href="@{taxList(page=${page + 1},searchWord=${searchWord})}">[다음]</a>
+		</span>
+		<span th:if="${page >= maxPage}">
+			[다음]
+		</span>
+		</th>
+	</tr> -->
+</table>
+</body>
+</html>

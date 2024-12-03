@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SmartTax.mapper.IncomeTaxMapper">
+<sql id="baseColumn">
+income_tax_report_num , user_Num, income_tax_report_date , taxable_income , income_tax_due 
+, income_Tax_Payment_Status
+</sql>
+<insert id="incomeTaxInsert" parameterType="incomeTaxDTO">
+insert into income_tax_report ( <include refid="baseColumn"/> )
+values( #{incomeTaxReportNum}, #{userNum}, #{incomeTaxReportDate}, #{taxableIncome}
+, #{incomeTaxDue}, #{incomeTaxPaymentStatus})
+</insert>
+
+<select id="incomeTaxSelectAll" parameterType="incomeTaxDTO" resultType="incomeTaxDTO">
+select 	<include refid="baseColumn"/>
+ from income_tax_report 
+</select>
+
+<select id="incomeTaxSelectOne" resultType="incomeTaxDTO">
+select 	<include refid="baseColumn"/>
+ from income_tax_report 
+where income_tax_report_num  = #{incomeTaxReportNum} and user_num=#{userNum}
+</select>
+
+<update id="incomeTaxUpdate">
+update income_tax_report 
+set income_tax_report_date=#{incomeTaxReportDate }, taxable_income=#{taxableIncome }
+, income_tax_due=#{incomeTaxDue }, income_Tax_Payment_Status=#{incomeTaxPaymentStatus }
+
+where income_tax_report_num  = #{incomeTaxReportNum} and user_num=#{userNum}
+</update>
+
+<delete id="incomeTaxDelete" >
+delete from income_tax_report where income_tax_report_num  = #{incomeTaxReportNum} and user_num=#{userNum}
+</delete>
+
+</mapper>

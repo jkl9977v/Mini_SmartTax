@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/check.js"></script>
+</head>
+<body>
+소득세 수정 페이지입니다.<br />
+<form action="incomeTaxUpdate" method="post" ><!-- th:object="${incomeTaxCommand}" dto -->
+	<input type="text" name="incomeTaxReportNum" th:value="${dto.incomeTaxReportNum}" readonly="readonly"  /><br />
+	
+	
+신고 일자 : <input type="date" name="incomeTaxReportDate" id="incomeTaxReportDate" th:value="${#dates.format(dto.incomeTaxReportDate,'yyyy-MM-dd') }" />
+		       	<!-- <span  style="color:red" th:if="${#fields.hasErrors('incomeTaxId')}"th:errors="*{incomeTaxId}"></span> --> <br />
+신고된 과세소득 금액 : <input type="number" name="taxableIncome" th:value="${dto.taxableIncome }" />
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('incomeTaxPw')}"  th:errors="*{incomeTaxPw}"></span> --> <br />
+납부해야 할 소득세 금액 : <input type="number" name="incomeTaxDue" th:value="${dto.incomeTaxDue }"  />
+			   	<!-- <span style="color:red" th:if="${#fields.hasErrors('incomeTaxPwCon')}" th:errors="*{incomeTaxPwCon}"></span> --> <br />
+납부 상태 : <input type="text" name="incomeTaxPaymentStatus" th:value="${dto.incomeTaxPaymentStatus }" />
+				<!-- <span style="color:red" th:if="${#fields.hasErrors('incomeTaxAddr')}" th:errors="*{incomeTaxAddr}"></span> --> <br />
+
+<input type="submit" value="소득세 수정하기" /> 
+<input type="button" value="소득세 목록" onclick="javascript:location.href='incomeTaxList'">
+</body>
+</html>
