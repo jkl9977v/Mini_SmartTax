@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SmartTax.mapper.UserMapper">
+<sql id="baseColumn">
+	 user_Phone, user_Num, user_Id, user_Name,
+	 user_Email, user_Pw,user_Addr,user_Addr_Detail,
+	 user_Post,user_Profile_Image, user_Join_Date
+</sql>
+<insert id="userInsert" parameterType="userDTO">
+insert into users( <include refid="baseColumn"/> )
+values( #{userPhone}, #{userNum}, #{userId}, #{userName},
+	 #{userEmail}, #{userPw},#{userAddr},#{userAddrDetail},
+	 #{userPost}, #{userProfileImage}, sysdate)
+</insert>
+
+<select id="userSelectAll" parameterType="userDTO" resultType="userDTO">
+select 	<include refid="baseColumn"/>
+ from users
+</select>
+
+<select id="userSelectOne" parameterType="userDTO" resultType="userDTO">
+select 	<include refid="baseColumn"/>
+ from users
+where user_NUM = #{userNum}
+</select>
+<update id="userUpdate" parameterType="userDTO">
+update users
+set 	 
+user_Phone=#{userPhone }, user_Num=#{userNum }, user_Id=#{userId }, user_Name=#{userName },
+	 user_Email=#{userEmail }, user_Addr=#{userAddr },user_Addr_Detail=#{userAddrDetail },
+	 user_Post=#{userPost }, user_Profile_Image=#{userProfileImage }
+where user_NUM = #{userNum}
+</update>
+<delete id="userDelete" parameterType="String">
+delete from users where user_NUM = #{userNum}
+</delete>
+
+<select id="userNumSelect" parameterType="String" resultType="String">
+select user_num from users where user_id=#{userId}
+</select>
+
+<select id="findUserId" resultType="String">
+select user_id from users where user_phone=#{userPhone} and user_Email=#{userEmail}
+</select>
+
+<select id="findUserPw" resultType="String">
+select user_Pw from users where user_id=#{userId} and user_Email=#{userEmail}
+</select>
+</mapper>

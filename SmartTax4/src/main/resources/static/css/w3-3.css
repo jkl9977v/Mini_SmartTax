@@ -1,0 +1,104 @@
+@charset "UTF-8";
+/* index, taxAll, prodInven*/
+
+    /* 기본 폰트 스타일 */
+        html, body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Roboto", sans-serif;
+        }
+
+        /* 상단바 스타일 */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 10px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+              /*   position: fixed; 상단바 고정 */
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .top-bar .menu {
+            display: flex;
+            gap: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .top-bar .user-options {
+            display: flex;
+            gap: 10px;
+            font-size: 16px;
+            color: black;
+        }
+
+        /* 하단바 스타일 */
+        footer {
+            background-color: white;
+            color: white;
+            padding: 20px;
+              position: fixed; /* 하단바 고정 */
+            bottom: 0;
+            width: 100%;
+           z-index: 1000; 
+        }
+
+        footer i {
+            color: black;
+        }
+
+        /* 페이지 컨텐츠 스타일 */
+        .w3-row-padding {
+      /*      margin-top: 80px;  *//* 상단바 크기만큼 마진을 추가 */
+             margin-bottom: 80px;  /* 하단바 크기만큼 마진을 추가 */
+            display: flex;
+      /*       flex-direction: column;
+            justify-content: space-between; */
+            /* height: calc(100vh - 160px); */ /* 화면 전체에서 상단바와 하단바 크기를 제외한 나머지 공간을 차지 */
+        }
+        
+
+        /* 왼쪽 네모칸 스타일 */
+        .w3-third {
+            width: 25% !important;
+        } 
+
+        /* 오른쪽 네모칸 스타일 */
+        .w3-twothird {
+            width: 75% !important;
+        } 
+        
+
+
+        /* 왼쪽 네모칸이 사라지거나 크기를 변경 */
+       /*  .w3-hide-left {
+            display: none;
+        }
+ */
+        /* 왼쪽 네모칸이 있을 때 오른쪽 칸이 75% 크기 */
+      /*   .w3-expand-right {
+            width: 100% !important;
+        }
+         */
+        
+        
+        
+
+        /* 왼쪽 네모칸 밖으로 벗어나지 않게 설정 */
+        .w3-card-4 {
+            overflow: hidden;
+        }
+        
+        /*A태그에 하이퍼링크를 달았을 경우 밑줄 제거*/
+         a {
+            text-decoration: none;
+        }

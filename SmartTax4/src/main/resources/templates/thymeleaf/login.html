@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SmartTax</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- W3.CSS -->
+   <!--  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    <link rel="stylesheet" href="/static/css/w3-1.css">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+
+    </style>
+    
+    <link rel="stylesheet" href="/static/css/w3-2.css">
+    
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src ="/static/js/daumAddressScript.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/check.js"></script>
+</head>
+<body class="w3-light-grey">
+
+    <!-- 상단바 -->
+    <div class="top-bar">
+        <!-- 로고 -->
+        <div class="logo" ><a href="/">SmartTax</a></div>
+
+        <!-- 메뉴 -->
+        <div class="menu">
+        </div>
+
+        <!-- 로그인/로그아웃 -->
+        <div class="user-options"> 
+            <a href="/">이전페이지</a>
+        </div>
+    </div>
+
+    <!-- 페이지 컨텐츠 -->
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+        <div class="w3-row-padding">
+            <!-- Right Column -->
+            <div id="right-column" class="w3-twobox">
+            
+                <div class="w3-container w3-card w3-white">
+                
+                    <h2 class="w3-text-grey w3-padding-16">
+                     <a  href="/" style="font-size:35px; color:black;"><b>SmartTax</b> </a> 로그인</h2>
+                    <div class="w3-container">
+                    
+                    <form action="/login/login" method="post" th:object="${loginCommand}" >
+<table border="1" align="center">
+	<tr><td colspan="2">자동로그인<input type="checkbox" name="autoLogin" /> | 
+						아이디저장<input type="checkbox" name="idStore" 
+								      /></td></tr>  <!-- th:checked="${loginCommand.idStore}" -->
+	<tr><td>아 이 디 : <input type="text" name="userId" /><br />  <!-- th:value="${loginCommand.userId}" -->
+			<!-- <span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span> --></td>
+		<td rowspan="2">
+			<input type="image" src="/static/images/오케바리.gif" width="60" /></span>
+		</td></tr>
+	<tr><td>비밀번호: <input type="password" name="userPw" /><br />
+			<!-- <span th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}"> </td> --></tr>
+	<tr><td colspan="2"><a href="/find/findId">아이디</a> / 
+						<a href="/find/findPw">비밀번호 찾기</a> | 
+		<a href="../user/userWrite">회원가입</a></td></tr>
+</table>
+</form>             
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 하단바 -->
+    <footer class="w3-container w3-teal w3-center w3-padding-16">
+
+    </footer>
+</body>
+</html>

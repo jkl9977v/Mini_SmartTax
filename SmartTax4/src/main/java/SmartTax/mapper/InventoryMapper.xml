@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SmartTax.mapper.InventoryMapper">
+<sql id="baseColumn">
+inventory_Num, product_Num,  user_Num, inventory_Quantity, last_Updated
+</sql>
+<insert id="inventoryInsert" parameterType="inventoryDTO">
+insert into inventory ( <include refid="baseColumn"/> )
+values( #{inventoryNum}, #{productNum }, #{userNum}, #{inventoryQuantity}
+, sysDate)
+</insert>
+
+<select id="inventorySelectAll" parameterType="startEndPageDTO" resultType="inventoryDTO">
+select 
+* from (select ROW_NUMBER() over (order by inventory_Num ) as rn,
+	<include refid="baseColumn"/>
+ from inventory
+  <where> 
+	<if test="searchWord != null">
+		inventory_Num like '%'||#{searchWord}||'%'
+		or product_Num like '%'||#{searchWord}||'%'
+		
+	</if>
+</where>
+)
+where user_num=#{userNum} and rn BETWEEN #{startRow} and #{endRow}
+</select>
+
+<select id="inventorySelectOne" resultType="inventoryDTO">
+select 	<include refid="baseColumn"/>
+ from inventory
+where inventory_NUM = #{inventoryNum} and user_num=#{userNum}
+</select>
+
+<update id="inventoryUpdate">
+update inventory
+set product_Num=#{productNum }, inventory_Quantity=#{inventoryQuantity }, last_Updated=sysdate
+where inventory_NUM = #{inventoryNum} and user_num=#{userNum}
+</update>
+
+<delete id="inventoryDelete" >
+delete from inventory where inventory_NUM = #{inventoryNum} and user_num=#{userNum}
+</delete>
+
+<select id="inventoryCount" resultType="integer">
+	select count(*) from inventory where user_Num=#{userNum}
+</select>
+
+</mapper>

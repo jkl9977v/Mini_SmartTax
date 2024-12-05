@@ -12,9 +12,20 @@ values( #{taxNum}, #{userNum}, #{incomeTax}, #{vatTax}
 , #{taxDeduction}, #{taxDueDate}, #{taxPaymentStatus})
 </insert>
 
-<select id="taxSelectAll" parameterType="taxDTO" resultType="taxDTO">
-select 	<include refid="baseColumn"/>
+<select id="taxSelectAll" parameterType="startEndPageDTO" resultType="taxDTO">
+select 
+* from (select ROW_NUMBER() over (order by tax_Num ) as rn,
+	<include refid="baseColumn"/>
  from taxes
+  <where> 
+	<if test="searchWord != null">
+		tax_Num like '%'||#{searchWord}||'%'
+		or tax_Payment_Status like '%'||#{searchWord}||'%'
+		
+	</if>
+</where>
+)
+where user_num=#{userNum} and rn BETWEEN #{startRow} and #{endRow}
 </select>
 
 <select id="taxSelectOne" resultType="taxDTO">
@@ -33,5 +44,9 @@ where tax_NUM = #{taxNum} and user_num=#{userNum}
 <delete id="taxDelete" >
 delete from taxes where tax_NUM = #{taxNum} and user_num=#{userNum}
 </delete>
+
+<select id="taxCount" resultType="integer">
+	select count(*) from taxes where user_Num=#{userNum}
+</select>
 
 </mapper>

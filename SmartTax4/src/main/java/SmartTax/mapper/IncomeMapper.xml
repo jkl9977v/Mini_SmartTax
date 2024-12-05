@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SmartTax.mapper.IncomeMapper">
+<sql id="baseColumn">
+income_Num, user_Num, income_Amount, income_Date, income_Category
+, income_Description, income_Vat_Amount
+</sql>
+<insert id="incomeInsert" parameterType="incomeDTO">
+insert into income( <include refid="baseColumn"/> )
+values( #{incomeNum}, #{userNum}, #{incomeAmount}, #{incomeDate}
+, #{incomeCategory}, #{incomeDescription}, #{income_Vat_Amount})
+</insert>
+
+<select id="incomeSelectAll" parameterType="startEndPageDTO" resultType="incomeDTO">
+select 
+* from (select ROW_NUMBER() over (order by income_Num ) as rn,	
+<include refid="baseColumn"/>
+ from income 
+ <where> 
+	<if test="searchWord != null">
+		income_Num like '%'||#{searchWord}||'%'
+		or income_Category like '%'||#{searchWord}||'%'
+		
+	</if>
+</where>
+)
+where user_num=#{userNum} and rn BETWEEN #{startRow} and #{endRow}
+</select>
+
+<select id="incomeSelectOne" resultType="incomeDTO">
+select 	<include refid="baseColumn"/>
+ from income
+where income_NUM = #{incomeNum} and user_num=#{userNum}
+</select>
+
+<update id="incomeUpdate">
+update income
+set income_Amount=#{incomeAmount }, income_Date=#{incomeDate }
+, income_Category=#{incomeCategory }, income_Description=#{incomeDescription }
+, income_Vat_Amount=#{incomeVatAmount }
+where income_NUM = #{incomeNum} and user_num=#{userNum}
+</update>
+
+<delete id="incomeDelete" >
+delete from income where income_NUM = #{incomeNum} and user_num=#{userNum}
+</delete>
+
+<select id="incomeCount" resultType="integer">
+	select count(*) from income where user_Num=#{userNum}
+</select>
+
+</mapper>

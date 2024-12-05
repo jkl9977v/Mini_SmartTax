@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SmartTax.mapper.ProductsMapper">
+<sql id="baseColumn">
+product_Num, user_Num, product_Name, category,purchase_Price,sale_Price,product_Date
+</sql>
+<insert id="productsInsert" parameterType="productsDTO">
+insert into products ( <include refid="baseColumn"/> )
+values( #{productNum}, #{userNum}, #{productName}, #{category}
+, #{purchasePrice}, #{salePrice}, sysDate)
+</insert>
+
+<select id="productsSelectAll" parameterType="startEndPageDTO" resultType="productsDTO">
+select 
+* from (select ROW_NUMBER() over (order by product_Num ) as rn,
+	<include refid="baseColumn"/>
+ from products
+  <where> 
+	<if test="searchWord != null">
+		product_Num like '%'||#{searchWord}||'%'
+		or product_Name like '%'||#{searchWord}||'%'
+		
+	</if>
+</where>
+)
+where user_num=#{userNum} and rn BETWEEN #{startRow} and #{endRow}
+</select>
+
+<select id="productsSelectOne" resultType="productsDTO">
+select 	<include refid="baseColumn"/>
+ from products
+where product_NUM = #{productNum} and user_num=#{userNum}
+</select>
+
+<update id="productsUpdate">
+update products
+set product_Name=#{productName }, category=#{category },purchase_Price=#{purchasePrice },sale_Price=#{salePrice}
+where product_NUM = #{productNum} and user_num=#{userNum}
+</update>
+
+<delete id="productsDelete" >
+delete from products where product_NUM = #{productNum} and user_num=#{userNum}
+</delete>
+
+<select id="productsCount" resultType="integer">
+	select count(*) from products where user_Num=#{userNum}
+</select>
+
+</mapper>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SmartTax</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        /* 기본 폰트 스타일 */
+        html, body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Roboto", sans-serif;
+        }
+
+        /* 상단바 스타일 */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 10px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+              /*   position: fixed; 상단바 고정 */
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+        }
+
+        .top-bar .menu {
+            display: flex;
+            gap: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+        }
+
+        .top-bar .user-options {
+            display: flex;
+            gap: 10px;
+            font-size: 16px;
+            color: black;
+        }
+
+        /* 하단바 스타일 */
+        footer {
+            background-color: white;
+            color: white;
+            padding: 20px;
+              position: fixed; /* 하단바 고정 */
+            bottom: 0;
+            width: 100%;
+           z-index: 1000; 
+        }
+
+        footer i {
+            color: black;
+        }
+
+        /* 페이지 컨텐츠 스타일 */
+        .w3-row-padding {
+      /*      margin-top: 80px;  *//* 상단바 크기만큼 마진을 추가 */
+             margin-bottom: 80px;  /* 하단바 크기만큼 마진을 추가 */
+            display: flex;
+      /*       flex-direction: column;
+            justify-content: space-between; */
+            /* height: calc(100vh - 160px); */ /* 화면 전체에서 상단바와 하단바 크기를 제외한 나머지 공간을 차지 */
+        }
+
+        /* 왼쪽 네모칸 스타일 */
+        .w3-third {
+            width: 25% !important;
+        } 
+
+        /* 오른쪽 네모칸 스타일 */
+        .w3-twothird {
+            width: 75% !important;
+        } 
+
+        /* 왼쪽 네모칸 밖으로 벗어나지 않게 설정 */
+        .w3-card-4 {
+            overflow: hidden;
+        }
+        
+        /*A태그에 하이퍼링크를 달았을 경우 밑줄 제거*/
+        .none {
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/checkbox.js"></script>
+</head>
+<body class="w3-light-grey">
+
+    <!-- 상단바 -->
+    <div class="top-bar">
+        <!-- 로고 -->
+        <div class="logo"><a class="none" href="/">SmartTax</a></div>
+
+                <!-- 메뉴 -->
+        <div class="menu">
+            <a class="none" href="../income/incomeList">매출관리</a>
+            <a class="none" href="../expenses/expensesList">비용관리</a>
+            <a class="none" href="../reports/reportsList">연간 순수익</a>
+            <a  class="none" href="../prodInven">상품 재고관리</a>
+            <a class="none" href="../taxAll">세금관리</a>
+        </div>
+
+        <!-- 로그인/로그아웃 -->
+        <div class="user-options">
+        	<th:block th:if="${session.auth==null}" >
+        	<a href="user/userWrite">회원가입</a>
+            <a href="login/login">로그인</a>
+            </th:block>
+            <th:block th:if="${session.auth!=null}">
+            <a class="none" href="../user/userMyPage">내 정보</a> 
+            <a  class="none" href="../login/logout">로그아웃</a>
+            </th:block>
+        </div>
+    </div>
+ 
+    <!-- 페이지 컨텐츠 -->
+    <th:block th:if="${session.auth!=null}">
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+        <div class="w3-row-padding">
+        
+            <!-- Left Column -->
+            <div id="left-column" class="w3-third">
+                <div class="w3-white w3-text-grey w3-card-4">
+                         <div class="w3-display-container">
+                    <br/>
+                        <img th:src="|/static/upload/${dto.userProfileImage}|" style="width:100%" alt="Avatar"><br/> <!-- 경로에 유저 이미지 경로 넣기 -->
+                        <br/><br/><br/>
+                        <div class="w3-display-bottomleft w3-container w3-text-black">
+                            <h2>    [[${dto.userName}]]</h2>
+                        </div>
+                    </div>
+                    <div class="w3-container">
+                        <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>사업자</p>
+                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>[[${dto.userAddr}]]</p>
+                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>[[${dto.userEmail}]]</p>
+                        <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>[[${dto.userPhone}]]</p>
+                        <p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-teal"></i>가입일: [[${#dates.format(dto.userJoinDate,'yyyy-MM-dd')}]]</p>
+                        <hr>   
+                    </div>
+                </div>
+                <br>
+            </div>
+       
+
+            <!-- Right Column -->
+          
+            <div id="right-column" class="w3-twothird">
+                <div class="w3-container w3-card w3-white" style="min-height:550px;">
+                    <h2 class="w3-text-grey w3-padding">
+                    <a  href="/" style="font-size:35px; color:black;" class="none"><b>SmartTax</b> </a> 나의 세금 목록 페이지</h2>
+                    <div class="w3-container">
+                     <h5 class="w3-opacity"><a href="taxWrite">세금 작성</a></h5>
+<table border=1 width="600">
+	<form action="taxList" method="get">
+	<tr>
+		<td colspan="6">세금목록 검색:
+			<input type="search" name="searchWord" size=60 th:value="${searchWord}">
+			<input type="submit" value="검색">
+		</td>
+	</tr>
+	</form>
+
+	<tr><td><input type="checkbox" id="checkBoxs" /></td>
+		<td>번호</td><td>세금 신고 번호</td><td>세금 신고 및 납부 기한</td><td>납부 상태</td>
+		<!-- <td>세금 카테고리</td> -->
+	</tr>
+	<tr th:each=" dto,idx : ${list}">
+		<td><input type="checkbox" name="nums" /> <!-- th:value="${dto.taxNum}" --></td>
+		<td>[[${idx.index}+1]]</td>
+		<td><a th:href="|taxDetail?taxNum=${dto.taxNum}|">[[${dto.taxNum}]]</a></td>
+		<td>[[${#dates.format(dto.taxDueDate,'yyyy-MM-dd')}]]</td>
+		<td>[[${dto.taxPaymentStatus}]]</td>
+		
+	</tr>
+
+	<tr>
+		<th colspan="6">
+		<span th:if="${page <= 1}">[이전]</span>
+		<span th:if="${page > 1}">
+			<a th:href="|taxList?page=${page - 1}&searchWord=${searchWord}|">[이전]</a>
+		</span>   						
+		<th:block th:each=" i : ${#numbers.sequence(startPageNum, endPageNum)}">
+			[<a th:href="|taxList?page=${i}&searchWord=${searchWord}|">[[${i}]]</a>]
+		</th:block>
+		<span th:if="${page < maxPage}">
+			<a th:href="@{taxList(page=${page + 1},searchWord=${searchWord})}">[다음]</a>
+		</span>
+		<span th:if="${page >= maxPage}">
+			[다음]
+		</span>
+		</th>
+	</tr>
+</table>              
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </th:block>
+
+  <!-- 하단바 -->
+    <footer class="w3-container w3-teal w3-center w3-padding-16">
+    </footer>
+</body>
+</html>
